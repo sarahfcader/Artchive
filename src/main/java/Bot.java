@@ -33,8 +33,9 @@ public class Bot extends ListenerAdapter {
 
         // Build MongoClient
         try {
-            File file = new File("connectionString.txt");
-            ConnectionString connectionString = new ConnectionString(new Scanner(file).nextLine());
+            File file = new File("configBot.txt");
+            Scanner scanner = new Scanner(file);
+            ConnectionString connectionString = new ConnectionString(scanner.nextLine());
             MongoClientSettings settings = MongoClientSettings.builder()
                     .applyConnectionString(connectionString)
                     .build();
@@ -42,7 +43,7 @@ public class Bot extends ListenerAdapter {
             database = mongoClient.getDatabase("userdata");
 
             // Build JDA
-            JDA bot = JDABuilder.createLight("ODkyOTAzMTY1MDc3MzY4ODMy.YVTq3w.9mYmuBzv7FJo4pqhFxSSoby0YWY")
+            JDA bot = JDABuilder.createLight(scanner.nextLine())
                     .addEventListeners(new Bot())
                     .build();
 
